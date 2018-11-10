@@ -49,6 +49,7 @@ export default {
       query: ''
     }
   },
+  
   methods: {
     getCities: function () {
       API.get('find', {
