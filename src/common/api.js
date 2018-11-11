@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-    baseURL: '//api.openweathermap/org/data/2.5/'
+    baseURL: '//api.openweathermap.org/data/2.5/'
 })
 API.interceptors.request.use(function (config){ 
     //Set common parameters with each request
