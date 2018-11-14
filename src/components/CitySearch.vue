@@ -6,19 +6,16 @@
     </form>
     <ul class="cities" v-if="results && results.list.length > 0">
         <li v-for="city in results.list">
-            <h2>{{ city.name }}, {{ city.sys.country }}</h2>
-            <p><router-link v-bind:to="{ name: 'CurrentWeather', params: { cityId: city.id } }">View Current Weather</router-link></p>
+          <h2>{{ city.name }}, {{ city.sys.country }}</h2>
+          <p><router-link v-bind:to="{ name: 'CurrentWeather', params: { cityId: city.id } }">View Current Weather</router-link></p>
 
-            <weather-summary v-bind:weatherData="city.weather"></weather-summary>
+          <weather-summary v-bind:weatherData="city.weather"></weather-summary>
 
-            <weather-data v-bind:weatherData="city.main"></weather-data>
-        </li>
+          <weather-data v-bind:weatherData="city.main"></weather-data>
+      </li>
     </ul>
     <div v-else-if="errors.length > 0">
-      <h2>There was an error fetching weather data.</h2>
-      <ul class="errors">
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
+    <error-list v-bind:errorslist="errors"></error-list>
     </div>
   </div>
 </template>
@@ -27,6 +24,7 @@
 import {API} from '@/common/api';
 import WeatherSummary from '@/components/WeatherSummary';
 import WeatherData from '@/components/WeatherData';
+import ErrorList from '@/components/ErrorList';
 
 export default {
   name: 'CitySearch',
@@ -55,18 +53,15 @@ export default {
   },
   components: {
     'weather-summary': WeatherSummary,
-    'weather-data': WeatherData
+    'weather-data': WeatherData,
+    'error-list': ErrorList
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.errors li {
-  color: red;
-  border: solid red 1px;
-  padding: 5px;
-}
+
 h1, h2 {
   font-weight: normal;
 }
@@ -83,16 +78,6 @@ li {
   padding: 10px;
   margin: 5px;
 }
-
-
-dd {
-  margin: 0 0 0 130px;
-  padding: 0 0 0.5em 0;
-}
-dt::after {
-  content: ":";
-}
-
 a {
   color: #42b983;
 }
